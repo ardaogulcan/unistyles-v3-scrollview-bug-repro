@@ -11,11 +11,11 @@ import {
   SafeAreaView,
   ScrollView,
   StatusBar,
-  StyleSheet,
   Text,
   useColorScheme,
   View,
 } from 'react-native';
+import {StyleSheet} from 'react-native-unistyles';
 
 import {
   Colors,
@@ -30,25 +30,14 @@ type SectionProps = PropsWithChildren<{
 }>;
 
 function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
       <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
+        style={styles.sectionTitle}>
         {title}
       </Text>
       <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
+        style={styles.sectionDescription}>
         {children}
       </Text>
     </View>
@@ -70,12 +59,10 @@ function App(): React.JSX.Element {
       />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
+        stickyHeaderIndices={[1]}
         style={backgroundStyle}>
         <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
+        <View style={styles.broken}>
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.tsx</Text> to change this
             screen and then come back to see your edits.
@@ -96,7 +83,10 @@ function App(): React.JSX.Element {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create((theme) => ({
+  broken: {
+    backgroundColor: theme.colors.background,
+  },
   sectionContainer: {
     marginTop: 32,
     paddingHorizontal: 24,
@@ -104,15 +94,17 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 24,
     fontWeight: '600',
+    color: theme.colors.text,
   },
   sectionDescription: {
     marginTop: 8,
     fontSize: 18,
     fontWeight: '400',
+    color: theme.colors.text,
   },
   highlight: {
     fontWeight: '700',
   },
-});
+}));
 
 export default App;
