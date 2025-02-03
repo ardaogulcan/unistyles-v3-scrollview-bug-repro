@@ -7,18 +7,10 @@
 
 import React from 'react';
 import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {SafeAreaView, ScrollView, StatusBar, Text, View} from 'react-native';
 import {StyleSheet} from 'react-native-unistyles';
 
 import {
-  Colors,
   DebugInstructions,
   Header,
   LearnMoreLinks,
@@ -32,35 +24,19 @@ type SectionProps = PropsWithChildren<{
 function Section({children, title}: SectionProps): React.JSX.Element {
   return (
     <View style={styles.sectionContainer}>
-      <Text
-        style={styles.sectionTitle}>
-        {title}
-      </Text>
-      <Text
-        style={styles.sectionDescription}>
-        {children}
-      </Text>
+      <Text style={styles.sectionTitle}>{title}</Text>
+      <Text style={styles.sectionDescription}>{children}</Text>
     </View>
   );
 }
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
+    <SafeAreaView>
+      <StatusBar />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
-        stickyHeaderIndices={[1]}
-        style={backgroundStyle}>
+        stickyHeaderIndices={[1]}>
         <Header />
         <View style={styles.broken}>
           <Section title="Step One">
@@ -83,7 +59,7 @@ function App(): React.JSX.Element {
   );
 }
 
-const styles = StyleSheet.create((theme) => ({
+const styles = StyleSheet.create(theme => ({
   broken: {
     backgroundColor: theme.colors.background,
   },
